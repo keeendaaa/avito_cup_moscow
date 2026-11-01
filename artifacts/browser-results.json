@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-01T15:38:53.287Z",
+  "viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      768,
+      1024
+    ]
+  ],
+  "runtimeErrors": [],
+  "failedRequests": [],
+  "result": "passed",
+  "checks": 55
+}
