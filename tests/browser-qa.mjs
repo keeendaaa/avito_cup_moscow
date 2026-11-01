@@ -136,10 +136,14 @@ try {
   await loadPage(true);
   await check(data(`state.circles[0].messages.at(-1).text.includes('Проверка')`), 'data survives reload');
   await click('.header-actions [data-action="friends"]');
+  await click('.person-card[data-id="masha"]');
+  await check(`document.querySelector('#main h1').textContent==='Профиль'&&document.querySelector('.person-profile-page h2').textContent==='Мария Соколова'`, 'person card opens that person profile');
+  await click('[data-action="back-friends"]');
+  await check(`document.querySelectorAll('.person-card').length===5`, 'profile has a way back to friends');
   await fill('#people-search input', '@ira.belova'); await submit('#people-search');
   await check(`document.querySelectorAll('.person-card').length===1`, 'username search');
   await click('[data-action="follow"][data-id="ira"]');
-  await check(`document.querySelector('.relationship').textContent.includes('Вы друзья')`, 'mutual subscription becomes friendship');
+  await check(`document.querySelector('.person-card[data-id="ira"] .relationship').textContent.includes('Вы друзья')`, 'mutual subscription becomes friendship');
   await click('[data-action="edit-profile"]');
   await fill('#profile-form [name="username"]', 'sasha.volkov'); await submit('#profile-form');
   await check(`document.querySelector('#profile-error').textContent.includes('занят')`, 'duplicate username rejected');
