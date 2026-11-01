@@ -119,8 +119,10 @@ try {
   await click('.mobile-nav [data-action="chats"]');
   await check(`document.querySelectorAll('.chat-row').length>=3`, 'chats section lists every circle conversation');
   await screenshot('mobile-chats-390', 390, 844);
-  await click('.chat-row');
+  await click('.chat-row[data-id="weekend"]');
   await check(`Boolean(document.querySelector('.full-chat'))&&Boolean(document.querySelector('#message-input'))`, 'chat opens straight from the chats list');
+  await check(`document.querySelectorAll('.full-chat .message').length>=10`, 'seeded circle chat has a full conversation');
+  await check(`getComputedStyle(document.querySelector('.chat-composer')).position==='sticky'`, 'message composer stays pinned while the chat scrolls');
   await click('.mobile-nav [data-action="together"]');
   await check(`getComputedStyle(document.querySelector('.mobile-circle-home')).display!=='none'`, 'bottom navigation returns to circles');
   await click('.mobile-circle-card[data-id="weekend"]');

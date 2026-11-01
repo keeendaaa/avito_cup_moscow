@@ -657,3 +657,12 @@ summary { font-size: 13px; cursor: pointer; }
 /* Listing description */
 .listing-description { color: var(--secondary); font-size: 13px; line-height: 1.5; margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .detail-description { font-size: 14px; line-height: 1.6; margin: 14px 0 16px; color: var(--text); }
+
+/* Sticky chat composer: the input never hides behind long message lists */
+.chat-composer { position: sticky; bottom: 0; z-index: 4; background: #fff; padding-top: 8px; padding-bottom: 6px; box-shadow: 0 -14px 18px -14px rgba(0, 0, 0, .18); }
+.modal-chat .chat-composer { background: #fff; }
+@media (max-width: 767px) {
+  .full-chat { padding-bottom: 72px; }
+  .full-chat .chat-messages { height: calc(100dvh - 400px); min-height: 240px; }
+  .chat-composer { bottom: 68px; padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px)); }
+}
