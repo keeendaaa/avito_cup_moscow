@@ -217,6 +217,7 @@ function notifications() {
   return `<div class="page-title"><div><h1>Уведомления</h1><p class="muted">Важное для вас и вашего круга</p></div>${btn('read-notifications', 'Прочитать все', 'text-button')}</div>${state.notifications.length ? `<div class="notification-list">${state.notifications.map(n => `<button class="notification-row ${n.read ? '' : 'unread'}" data-action="open-notification" data-id="${n.id}"><span class="notification-symbol">${icon('bell')}</span><span><strong>${e(n.title)}</strong><span>${e(n.text)}</span><small>Уведомление для ${n.recipients.length} участников круга · деморежим</small></span>${icon('chevron')}</button>`).join('')}</div>` : empty('Всё спокойно', 'Здесь появятся сообщения о вариантах из листа ожидания.', 'Вернуться в круг', 'together')}`;
 }
 function render() {
+  document.body.classList.toggle('chat-view', ui.page === 'together' && ui.circleTab === 'chat' && !ui.mobileHome);
   const before = motion.beforeView(app);
   const pages = { together, friends, profile, chats, person: personProfile, catalog: () => catalog(), favorites: () => catalog(true), 'friend-catalog': () => catalog(), notifications };
   document.title = `${{ together: 'Вместе', friends: 'Друзья', profile: 'Мой профиль', chats: 'Чаты', person: 'Профиль', favorites: 'Избранное', notifications: 'Уведомления' }[ui.page] || 'Объявления'} — Авито`;

@@ -473,11 +473,14 @@ summary { font-size: 13px; cursor: pointer; }
   .back-to-circles > .icon { width: 14px; height: 14px; transform: rotate(180deg); }
   .sidebar { display: none; }
   .app-layout { display: block; padding-top: 24px; min-height: calc(100dvh - 200px); }
-  .page-title { gap: 12px; align-items: flex-start; margin-bottom: 24px; }
+  .page-title { gap: 12px; align-items: stretch; flex-direction: column; margin-bottom: 24px; }
+  .page-title > .btn { align-self: flex-start; }
   .page-title h1 { font-size: 32px; }
   .page-title > div > p { font-size: 12px; margin-top: 8px; }
-  .page-title > .btn { padding: 8px 12px; min-height: 36px; font-size: 11px; gap: 6px; margin-top: 4px; }
+  .page-title > .btn { padding: 8px 12px; min-height: 36px; font-size: 11px; gap: 6px; margin-top: 4px; flex-shrink: 0; }
   .page-title > .btn > .icon { width: 16px; height: 16px; }
+  .page-title > div { min-width: 0; }
+  .page-title h1 { font-size: 27px; line-height: 1.15; letter-spacing: -.4px; }
   .board-title { margin-bottom: 20px; gap: 8px; }
   .topic-dropdown > summary { gap: 8px; }
   .topic-dropdown > summary h1 { font-size: 27px; line-height: 1.2; }
@@ -661,14 +664,6 @@ summary { font-size: 13px; cursor: pointer; }
 /* Sticky chat composer: the input never hides behind long message lists */
 .chat-composer { position: sticky; bottom: 0; z-index: 4; background: #fff; padding-top: 8px; padding-bottom: 6px; box-shadow: 0 -14px 18px -14px rgba(0, 0, 0, .18); }
 .modal-chat .chat-composer { background: #fff; }
-@media (max-width: 767px) {
-  .full-chat { padding-bottom: 72px; }
-  .full-chat .chat-messages { height: calc(100dvh - 400px); min-height: 240px; }
-  .chat-composer { bottom: 68px; padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px)); }
-}
-@media (min-width: 768px) {
-  .full-chat .chat-messages { height: calc(100dvh - 380px); min-height: 300px; }
-}
 
 /* Person cards open a profile */
 .person-card { cursor: pointer; transition: border-color .15s, box-shadow .15s; }
@@ -686,12 +681,40 @@ summary { font-size: 13px; cursor: pointer; }
 /* Tight chat composer: no dead space under the send row */
 .full-chat .chat-composer { padding-bottom: 0; box-shadow: none; }
 .full-chat .chat-footer { padding: 6px 0 0; }
-@media (min-width: 768px) {
-  .full-chat .chat-messages { height: calc(100dvh - 350px); }
-}
 .person-relationship { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--secondary); margin-top: 8px; }
 .person-relationship .icon { width: 15px; height: 15px; }
 .message-quote-stub { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: #e8e1f3; color: #6a4393; flex: none; }
 .message-quote-stub .icon { width: 16px; height: 16px; }
 .person-profile-actions .btn-soft { background: #fff; border: 1px solid var(--line); }
 .person-profile-actions .btn-soft:hover { background: #f0f0f0; }
+
+/* A chat is a viewport-sized layout; only its message history scrolls. */
+body.chat-view { height: 100dvh; overflow: hidden; padding-bottom: 0; }
+.chat-view #app { height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+.chat-view .app-header { flex-shrink: 0; }
+.chat-view .app-layout { flex: 1; min-height: 0; width: 100%; overflow: hidden; grid-template-rows: minmax(0, 1fr); }
+.chat-view .sidebar { height: 100%; min-height: 0; }
+.chat-view #main,
+.chat-view .topic-content { display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.chat-view .circle-context,
+.chat-view .section-back,
+.chat-view .chat-heading { flex-shrink: 0; }
+.chat-view .full-chat { display: flex; flex-direction: column; flex: 1; min-height: 0; width: 100%; padding-bottom: 0; }
+.chat-view .full-chat .chat-messages { flex: 1; height: auto; min-height: 0; overscroll-behavior: contain; }
+.chat-view .full-chat .chat-composer { position: relative; bottom: auto; flex-shrink: 0; }
+@media (max-height: 500px) {
+  .chat-view .app-layout { padding-top: 8px; }
+  .chat-view .section-back { margin-bottom: 8px; }
+  .chat-view .full-chat { margin-top: 0; }
+  .chat-view .chat-heading { padding-block: 8px; }
+  .chat-view .full-chat .chat-messages { padding-block: 8px; }
+}
+@media (max-width: 767px) {
+  .chat-view #app { padding-bottom: calc(65px + env(safe-area-inset-bottom, 0px)); }
+  .chat-view .app-layout { display: flex; flex-direction: column; }
+  .chat-view #main { flex: 1; }
+  .chat-view .topic-content { flex: 1; }
+  .chat-view .section-back { margin-bottom: 8px; }
+  .chat-view .full-chat { margin-top: 0; }
+  .chat-view .chat-heading { padding-block: 8px; }
+}
