@@ -213,7 +213,7 @@ function render() {
   const before = motion.beforeView(app);
   const pages = { together, friends, profile, chats, catalog: () => catalog(), favorites: () => catalog(true), 'friend-catalog': () => catalog(), notifications };
   document.title = `${{ together: 'Вместе', friends: 'Друзья', profile: 'Мой профиль', chats: 'Чаты', favorites: 'Избранное', notifications: 'Уведомления' }[ui.page] || 'Объявления'} — Авито`;
-  app.innerHTML = `${header()}<div class="container app-layout">${sidebar()}<main id="main" class="${ui.mobileHome ? 'mobile-home-visible' : ''}" tabindex="-1">${storageError ? `<div class="error-banner">${e(storageError)}</div>` : ''}${(pages[ui.page] || together)()}</main></div><footer class="container footer"><span>Авито Вместе · учебный прототип</span><span>Демо. Не является официальным сервисом Авито</span>${btn('about', 'О прототипе', 'text-button')}</footer>${mobileNavigation()}`;
+  app.innerHTML = `${header()}<div class="container app-layout">${sidebar()}<main id="main" class="${ui.mobileHome ? 'mobile-home-visible' : ''}" tabindex="-1">${storageError ? `<div class="error-banner">${e(storageError)}</div>` : ''}${(pages[ui.page] || together)()}</main></div>${ui.circleTab === 'chat' ? '' : `<footer class="container footer"><span>Авито Вместе · учебный прототип</span><span>Демо. Не является официальным сервисом Авито</span>${btn('about', 'О прототипе', 'text-button')}</footer>`}${mobileNavigation()}`;
   motion.enterView(app, JSON.stringify([ui.page, ui.circle, ui.topic, ui.circleTab, ui.boardTab, ui.mobileHome, ui.query, ui.peopleQuery, ui.category]), before);
   if (ui.circleTab === 'chat') { const box = document.querySelector('#chat-messages'); if (box) box.scrollTop = box.scrollHeight; }
 }

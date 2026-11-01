@@ -666,3 +666,6 @@ summary { font-size: 13px; cursor: pointer; }
   .full-chat .chat-messages { height: calc(100dvh - 400px); min-height: 240px; }
   .chat-composer { bottom: 68px; padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px)); }
 }
+@media (min-width: 768px) {
+  .full-chat .chat-messages { height: calc(100dvh - 380px); min-height: 300px; }
+}

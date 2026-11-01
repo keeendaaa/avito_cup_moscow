@@ -123,6 +123,7 @@ try {
   await check(`Boolean(document.querySelector('.full-chat'))&&Boolean(document.querySelector('#message-input'))`, 'chat opens straight from the chats list');
   await check(`document.querySelectorAll('.full-chat .message').length>=10`, 'seeded circle chat has a full conversation');
   await check(`getComputedStyle(document.querySelector('.chat-composer')).position==='sticky'`, 'message composer stays pinned while the chat scrolls');
+  await check(`!document.querySelector('.footer')&&document.querySelector('.chat-composer').getBoundingClientRect().bottom<=innerHeight`, 'chat page ends at the composer, nothing scrolls below it');
   await click('.mobile-nav [data-action="together"]');
   await check(`getComputedStyle(document.querySelector('.mobile-circle-home')).display!=='none'`, 'bottom navigation returns to circles');
   await click('.mobile-circle-card[data-id="weekend"]');
