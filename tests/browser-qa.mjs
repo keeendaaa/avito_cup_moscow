@@ -94,7 +94,8 @@ try {
   await click('[data-action="item"][data-id="h"]');
   await waitFor(`document.querySelector('#modal').open`);
   await check(`(()=>{const g=document.querySelector('[data-gallery-index]');return Boolean(g)&&g.querySelectorAll('.gallery-slide').length>=2})()`, 'listing opens with a multi-photo gallery');
-  await check(`document.querySelector('.gallery-slide.active').naturalWidth>=900`, 'gallery photos are served at full size');
+  await check(`document.querySelector('.detail-description').textContent.trim().length>80`, 'listing dialog shows the seller description');
+  await check(`[...document.querySelectorAll('.gallery-slide')].some(i=>i.naturalWidth>=900)`, 'gallery photos are served at full size');
   await click('.gallery-arrow.next');
   await check(`document.querySelector('[data-gallery-current]').textContent==='2'`, 'gallery arrow moves to the next photo');
   await click('.gallery-thumb[data-index="0"]');

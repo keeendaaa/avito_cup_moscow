@@ -653,3 +653,7 @@ summary { font-size: 13px; cursor: pointer; }
 .chats-friends { margin-top: 16px; }
 .mobile-search-link { display: none; }
 @media (max-width: 767px) { .mobile-search-link { display: inline-flex; margin-top: 4px; } }
+
+/* Listing description */
+.listing-description { color: var(--secondary); font-size: 13px; line-height: 1.5; margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.detail-description { font-size: 14px; line-height: 1.6; margin: 14px 0 16px; color: var(--text); }
